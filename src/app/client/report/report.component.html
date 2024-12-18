@@ -1,0 +1,23 @@
+<button class="btn btn-success" (click)="addInputField()">
+    <span class="glyphicon glyphicon-plus"></span> +
+  </button>
+<table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let field of inputFields; let i = index">
+            <tr>
+              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
+              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
+              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
+              <td><button class="btn btn-primary" (click)="updateInput([i])">Save</button></td>
+            </tr>
+          </ng-container>
+    </tbody>
+  </table>
