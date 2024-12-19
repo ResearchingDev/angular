@@ -1,23 +1,57 @@
 <button class="btn btn-success" (click)="addInputField()">
-    <span class="glyphicon glyphicon-plus"></span> +
-  </button>
-<table class="table table-striped table-bordered">
+  <span class="glyphicon glyphicon-plus"></span> +
+</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">City</th>
+        <th scope="col" *ngIf="formSubmitted">Actions</th>
       </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let field of inputFields; let i = index">
-            <tr>
-              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
-              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
-              <td><input [(ngModel)]="inputFields[i]" placeholder="Enter value"></td>
-              <td><button class="btn btn-primary" (click)="updateInput([i])">Save</button></td>
-            </tr>
-          </ng-container>
+      <ng-container formArrayName="fields" *ngFor="let field of fields.controls; let i = index">
+        <tr [formGroupName]="i">
+          <td>{{ i + 1 }}</td>
+          <td *ngIf="formSubmitted && editingRowIndex !== i">{{ field.value.first }}</td>
+          <td *ngIf="formSubmitted && editingRowIndex !== i">{{ field.value.last }}</td>
+          <td *ngIf="formSubmitted && editingRowIndex !== i">{{ field.value.city }}</td>
+
+          <td *ngIf="formSubmitted && editingRowIndex === i">
+            <input formControlName="first" placeholder="Edit first name">
+          </td>
+          <td *ngIf="formSubmitted && editingRowIndex === i">
+            <input formControlName="last" placeholder="Edit last name">
+          </td>
+          <td *ngIf="formSubmitted && editingRowIndex === i">
+            <input formControlName="city" placeholder="Edit city name">
+          </td>
+
+          <td *ngIf="!formSubmitted">
+            <input formControlName="first" placeholder="Enter first name">
+          </td>
+          <td *ngIf="!formSubmitted">
+            <input formControlName="last" placeholder="Enter last name">
+          </td>
+          <td *ngIf="!formSubmitted">
+            <input formControlName="city" placeholder="Enter city name">
+          </td>
+
+          <td *ngIf="formSubmitted && editingRowIndex !== i">
+            <button class="btn btn-warning" type="button" (click)="editInputField(i)">Edit</button>&nbsp;&nbsp;
+            <button class="btn btn-danger" type="button" (click)="removeInputField(i)">Remove</button>
+          </td>
+
+          <td *ngIf="formSubmitted && editingRowIndex === i">
+            <button class="btn btn-primary" type="button" (click)="saveInputField(i)">Save</button>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
+  <button *ngIf="!formSubmitted" class="btn btn-primary" type="submit">Submit</button>
+</form>
