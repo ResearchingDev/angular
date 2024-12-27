@@ -191,10 +191,10 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^18.0.0", "@angular/common@^18.0.0 || ^19.0.0", "@angular/common@^18.0.1", "@angular/common@^18.0.5", "@angular/common@>=17.0.0", "@angular/common@18.0.5":
-  version "18.0.5"
-  resolved "https://registry.npmjs.org/@angular/common/-/common-18.0.5.tgz"
-  integrity sha512-yItVQSu+Rx8gthWJDTOHwbzItY8/lqmmmYA1RMex0u3GkJoX3/3TZSGXbbBXl8GH8vmQOfp9yj3C02JmlwldRg==
+"@angular/common@^18.0.0", "@angular/common@^18.0.0 || ^19.0.0", "@angular/common@^18.0.1", "@angular/common@^18.2.13", "@angular/common@>=17.0.0", "@angular/common@18.0.5":
+  version "18.2.13"
+  resolved "https://registry.npmjs.org/@angular/common/-/common-18.2.13.tgz"
+  integrity sha512-4ZqrNp1PoZo7VNvW+sbSc2CB2axP1sCH2wXl8B0wdjsj8JY1hF1OhuugwhpAHtGxqewed2kCXayE+ZJqSTV4jw==
   dependencies:
     tslib "^2.3.0"
 
@@ -219,7 +219,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^18.0.0", "@angular/core@^18.0.0 || ^19.0.0", "@angular/core@^18.0.1", "@angular/core@^18.0.5", "@angular/core@>=17.0.0", "@angular/core@18.0.5":
+"@angular/core@^18.0.0", "@angular/core@^18.0.0 || ^19.0.0", "@angular/core@^18.0.1", "@angular/core@^18.0.5", "@angular/core@>=17.0.0", "@angular/core@18.0.5", "@angular/core@18.2.13":
   version "18.0.5"
   resolved "https://registry.npmjs.org/@angular/core/-/core-18.0.5.tgz"
   integrity sha512-0UuL+aMMWGYksz09YBsiHq1li7GmL8obB3IC3T5MwDqnn7FGRUBfBUOZEkM6B+pwgg+RAtNdJkbCfbh1z74bFQ==
