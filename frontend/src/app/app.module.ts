@@ -10,8 +10,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-  
+    AppComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
   providers: [],
