@@ -13,7 +13,14 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule,HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule, 
+    BrowserAnimationsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

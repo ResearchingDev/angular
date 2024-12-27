@@ -7,11 +7,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'auth/signin',
         pathMatch: 'full'
       },
       {
-        path: 'login',
+        path: 'auth/signin',
         loadComponent: () => import('./authendication/auth-signin/auth-signin.component')
       },
       {

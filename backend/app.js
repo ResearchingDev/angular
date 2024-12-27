@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const PORT = process.env.PORT || 5555
+const PORT = 3000;
 const path = require('path');
 
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 // Routes
 const routes = require('./routes/routes')
 
-app.use('/api/web', routes)
+app.use('/', routes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
