@@ -15,8 +15,8 @@ const routes: Routes = [
         loadComponent: () => import('./authendication/auth-signin/auth-signin.component')
       },
       {
-        path: 'signup',
-        loadComponent: () => import('./authendication/auth-signup/auth-signup.component')
+        path: 'auth/signup',
+        loadComponent: () => import('./authendication/auth-signup/auth-signup.component').then(m => m.AuthSignupComponent)
       },
     ]
   },
