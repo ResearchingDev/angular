@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'login',
         loadComponent: () => import('./authendication/auth-signin/auth-signin.component')
       },
+      {
+        path: 'signup',
+        loadComponent: () => import('./authendication/auth-signup/auth-signup.component')
+      },
     ]
   },
 ];
