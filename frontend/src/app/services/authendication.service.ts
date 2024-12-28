@@ -15,4 +15,10 @@ export class AuthService {
     const body = data;
     return this.httpClient.post(configData.API_URL + 'userLogin', body, { headers });
   }
+
+  userSignup(data: any) {
+    const headers = { Authorization: configData.API_TOKEN };
+    const body = data;
+    return this.httpClient.post(configData.API_URL + 'userSignup', body, { headers });
+  }
 }

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/authendication.service';
-import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-signin',
@@ -29,8 +27,8 @@ export default class AuthSigninComponent {
   get f(): { [key: string]: AbstractControl } {
     return this.signupForm.controls;
   }
-   // Submit method
-   onSubmit() {
+  // Submit method
+  onSubmit() {
     if (this.signupForm.valid) {
       this.submitted=false;
       this.authService.userLogin(this.signupForm.value).subscribe((data) => {
@@ -50,7 +48,7 @@ export default class AuthSigninComponent {
         }
       })
     } else {
-      console.log('Form is not valid');
+      this.submitted=true;
     }
   }
 }

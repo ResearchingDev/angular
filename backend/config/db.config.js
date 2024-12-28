@@ -13,7 +13,7 @@ const connection = new Client({
 
 connection.connect(err => {
   if (err) throw err
-  console.log('Connected to MySQL Database')
+  console.log('Connected to PostgreSQL Database')
 })
 
 module.exports = connection
