@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const SECRET_KEY = process.env.SECRET_KEY;
 const jwt = require('jsonwebtoken');
 
-// Fetch all ls_users
+// check the user login
 exports.loginUser = (loginData, callback) => {
     const { email, password } = loginData;
     const query = `SELECT * FROM public."psoMaster" WHERE LOWER("vEmail") = LOWER('${email}')`;
@@ -16,11 +16,14 @@ exports.loginUser = (loginData, callback) => {
             return callback(null, null); // No user found
         }
         const user = results.rows[0];
+        const pass = password.trim();
+        const user_pass = user.vPassword.trim();
         // Compare the provided password with the stored hashed password
-        bcrypt.compare(password, user.vPassword, (err, isMatch) => {
+        bcrypt.compare(pass, user_pass, (err, isMatch) => {
             if (err) {
                 return callback(err);
             }
+            console.log(isMatch);
             // If password doesn't match
             if (!isMatch) {
                 return callback(null, null); // Invalid password
@@ -31,6 +34,27 @@ exports.loginUser = (loginData, callback) => {
             const token = jwt.sign({ id: user.iMid, email: user.vEmail }, SECRET_KEY, { expiresIn: '1h' });
             // Return user data and token (optional)
             callback(null, { user: responseData, token });
+        });
+    });
+};
+
+// Update the signin option
+exports.clientSignup = (signinData, callback) => {
+    const { email, password, username} = signinData;
+    const saltRounds = 10; 
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) {
+            console.error('Error generating hash:', err);
+            return;
+        }
+        const query = `INSERT INTO public."psoMaster" ("vUserName", "vEmail", "vPassword", "eStatus") VALUES ($1, $2, $3, $4)`;
+        const values = [username, email, hash, '0'];
+        db.query(query, values, (err, results) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                return;
+            }
+            callback(null, results.rows); // `results.rows` contains the inserted data
         });
     });
 };

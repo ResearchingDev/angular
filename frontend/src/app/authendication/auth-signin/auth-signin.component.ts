@@ -37,12 +37,12 @@ export default class AuthSigninComponent {
       },(err)=>{
         this.response=err.error;
         this.submitted=true;
-        if (this.response.code === '401') {
+        if (this.response.status == '401') {
           // Show invalid email or password error
-          if (this.response.message.includes('Email')) {
+          if (this.response.message.includes('email')) {
             this.f['email'].setErrors({ 'incorrect': true });
           }
-          if (this.response.message.includes('Password')) {
+          if (this.response.message.includes('password')) {
             this.f['password'].setErrors({ 'incorrect': true });
           }
         }

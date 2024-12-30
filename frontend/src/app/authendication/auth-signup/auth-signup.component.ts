@@ -19,7 +19,7 @@ export class AuthSignupComponent {
   ngOnInit(): void {
     // Initialize the form
     this.signinForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      username: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
@@ -37,7 +37,7 @@ export class AuthSignupComponent {
       },(err)=>{
         this.response=err.error;
         this.submitted=true;
-        if (this.response.code === '401') {
+        if (this.response.code === '500') {
           // Show invalid email or password error
           if (this.response.message.includes('Email')) {
             this.f['email'].setErrors({ 'incorrect': true });
