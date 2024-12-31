@@ -8,10 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 // project import
 import { AppComponent } from './app.component';
+import { NavCollapseComponent } from './common/sidebar/navigation/nav-content/nav-collapse/nav-collapse.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +20,7 @@ import { AppComponent } from './app.component';
     FormsModule, 
     ReactiveFormsModule, 
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   // providers: [NavigationItem],
   bootstrap: [AppComponent]
