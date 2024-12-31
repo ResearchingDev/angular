@@ -19,8 +19,8 @@ const routes: Routes = [
         loadComponent: () => import('./authendication/auth-signup/auth-signup.component').then(m => m.AuthSignupComponent)
       },
       {
-        path: 'pages/dashboard',
-        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        path: 'template/client-template',
+        loadComponent: () => import('./template/client-template/client-template.component').then(m => m.ClientTemplateComponent)
       },
     ]
   },
