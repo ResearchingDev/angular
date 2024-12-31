@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'auth/signup',
         loadComponent: () => import('./authendication/auth-signup/auth-signup.component').then(m => m.AuthSignupComponent)
       },
+      {
+        path: 'pages/dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
     ]
   },
 ];

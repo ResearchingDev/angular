@@ -1,1 +1,9 @@
-<p>sidebar works!</p>
+<app-navigation
+  class="pcoded-navbar"
+  [ngClass]="{
+    'navbar-collapsed': navCollapsed,
+    'mob-open': navCollapsedMob
+  }"
+  (NavCollapse)="this.navCollapsed = !this.navCollapsed"
+  (NavCollapsedMob)="navMobClick()"
+></app-navigation>

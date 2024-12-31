@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, Event } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,17 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'datta-able';
+  showLayout = true;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
+  ngOnInit(): void {
+    // Subscribe to route changes
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        // Hide layout on login page
+        this.showLayout = event.url !== '/auth/signin';
       }
-      window.scrollTo(0, 0);
     });
   }
 }
