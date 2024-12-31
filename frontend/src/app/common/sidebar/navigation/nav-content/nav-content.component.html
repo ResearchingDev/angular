@@ -3,7 +3,7 @@
     <ul class="nav pcoded-inner-navbar" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
       @for (item of navigation; track item) {
         @if (item.type == 'group') {
-          <app-nav-group [item]="item"></app-nav-group>
+          <!-- <app-nav-group [item]="item"></app-nav-group> -->
         }
         @if (item.type == 'collapse') {
           <app-nav-collapse [item]="item"></app-nav-collapse>

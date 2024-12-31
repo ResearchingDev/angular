@@ -2,11 +2,12 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { DattaConfig } from 'src/app/app-config';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [NavigationComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

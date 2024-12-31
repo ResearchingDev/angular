@@ -1,9 +1,11 @@
 // angular import
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav-logo',
   standalone: true,
+  imports :[RouterLink],
   templateUrl: './nav-logo.component.html',
   styleUrls: ['./nav-logo.component.scss']
 })

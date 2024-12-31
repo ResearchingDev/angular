@@ -5,10 +5,15 @@ import { Location } from '@angular/common';
 // project import
 import { NavigationItem } from '../navigation';
 import { environment } from 'src/environments/environment';
+import { NgScrollbar } from 'ngx-scrollbar';
+import { NavGroupComponent } from './nav-group/nav-group.component';
+import { NavCollapseComponent } from './nav-collapse/nav-collapse.component';
+import { NavItemComponent } from './nav-item/nav-item.component';
 
 @Component({
   selector: 'app-nav-content',
   standalone: true,
+  imports:[NgScrollbar,NavGroupComponent,NavCollapseComponent,NavItemComponent],
   templateUrl: './nav-content.component.html',
   styleUrls: ['./nav-content.component.scss']
 })

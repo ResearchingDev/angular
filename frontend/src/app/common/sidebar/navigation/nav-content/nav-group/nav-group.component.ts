@@ -4,10 +4,13 @@ import { Location } from '@angular/common';
 
 // project import
 import { NavigationItem } from '../../navigation';
+import { NavCollapseComponent } from '../nav-collapse/nav-collapse.component';
+import { NavItemComponent } from '../nav-item/nav-item.component';
 
 @Component({
   selector: 'app-nav-group',
   standalone: true,
+  imports :[NavCollapseComponent,NavItemComponent],
   templateUrl: './nav-group.component.html',
   styleUrls: ['./nav-group.component.scss']
 })

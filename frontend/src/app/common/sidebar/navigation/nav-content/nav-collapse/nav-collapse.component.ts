@@ -4,10 +4,14 @@ import { animate, style, transition, trigger } from '@angular/animations';
 
 // project import
 import { NavigationItem } from '../../navigation';
+import { RouterLink,RouterLinkActive } from '@angular/router';
+import { NavGroupComponent } from '../nav-group/nav-group.component';
+import { NavItemComponent } from '../nav-item/nav-item.component';
 
 @Component({
   selector: 'app-nav-collapse',
   standalone: true,
+  imports : [RouterLink,RouterLinkActive,NavGroupComponent,NavItemComponent],
   templateUrl: './nav-collapse.component.html',
   styleUrls: ['./nav-collapse.component.scss'],
   animations: [
