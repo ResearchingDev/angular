@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // project import
 import { AppComponent } from './app.component';
-import { NavCollapseComponent } from './common/sidebar/navigation/nav-content/nav-collapse/nav-collapse.component';
 
 @NgModule({
   declarations: [

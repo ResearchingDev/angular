@@ -5,36 +5,34 @@ import { ClientTemplateComponent } from './template/client-template/client-templ
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'auth/signin',
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth',
     children: [
       {
-        path: '',        
-        redirectTo: 'auth/signin',
-        pathMatch: 'full'
+        path: 'signin',
+        loadComponent: () =>
+          import('./authendication/auth-signin/auth-signin.component').then((m) => m.AuthSigninComponent),
       },
       {
-        path: 'auth/signin',
-        loadComponent: () => import('./authendication/auth-signin/auth-signin.component')
+        path: 'signup',
+        loadComponent: () =>
+          import('./authendication/auth-signup/auth-signup.component').then((m) => m.AuthSignupComponent),
       },
-      {
-        path: 'auth/signup',
-        loadComponent: () => import('./authendication/auth-signup/auth-signup.component').then(m => m.AuthSignupComponent)
-      },
-    ]
+    ],
   },
   {
     path: '',
     component: ClientTemplateComponent,
     children: [
       {
-        path: '',        
-        redirectTo: 'pages/dashboard',
-        pathMatch: 'full'
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
-      {
-        path: 'pages/dashboard',
-        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
-      },
-    ]
+    ],
   },
 ];
 

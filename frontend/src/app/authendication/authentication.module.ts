@@ -5,6 +5,6 @@ import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 
 @NgModule({
   declarations: [AuthSignupComponent],
-  imports: [CommonModule,ReactiveFormsModule   ]
+  imports: [CommonModule,ReactiveFormsModule]
 })
 export class AuthenticationModule {}

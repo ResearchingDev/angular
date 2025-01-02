@@ -13,12 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Subscribe to route changes
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        // Hide layout on login page
-        this.showLayout = event.url !== '/auth/signin';
-      }
-    });
+    
   }
 }

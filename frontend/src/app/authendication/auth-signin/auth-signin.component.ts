@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./auth-signin.component.scss']
 })
 
-export default class AuthSigninComponent {
+export class AuthSigninComponent {
   public response:any;
   signupForm!: FormGroup;
   submitted = false;
@@ -33,7 +33,7 @@ export default class AuthSigninComponent {
       this.submitted=false;
       this.authService.userLogin(this.signupForm.value).subscribe((data) => {
         this.response=data;
-        this.router.navigate(['auth/signup']);
+        this.router.navigate(['dashboard']);
       },(err)=>{
         this.response=err.error;
         this.submitted=true;
