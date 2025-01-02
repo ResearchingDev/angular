@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, Event } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,7 @@ export class AppComponent implements OnInit {
   title = 'datta-able';
   showLayout = true;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     

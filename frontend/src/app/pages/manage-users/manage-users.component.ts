@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './manage-users.component.scss'
 })
 export class ManageUsersComponent {
+  constructor() {}
 
+  ngOnInit(): void {
+    
+  }
 }

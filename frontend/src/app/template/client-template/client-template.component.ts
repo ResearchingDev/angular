@@ -14,5 +14,5 @@ import { NavigationItem } from 'src/app/common/sidebar/navigation/navigation';
   providers: [NavigationItem],
 })
 export class ClientTemplateComponent {
-  constructor(private navigationItem: NavigationItem) {}
+  constructor() {}
 }
