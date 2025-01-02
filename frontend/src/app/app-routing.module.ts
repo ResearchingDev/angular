@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ClientTemplateComponent } from './template/client-template/client-template.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: '',
+        path: '',        
         redirectTo: 'auth/signin',
         pathMatch: 'full'
       },
@@ -18,9 +19,20 @@ const routes: Routes = [
         path: 'auth/signup',
         loadComponent: () => import('./authendication/auth-signup/auth-signup.component').then(m => m.AuthSignupComponent)
       },
+    ]
+  },
+  {
+    path: '',
+    component: ClientTemplateComponent,
+    children: [
       {
-        path: 'template/client-template',
-        loadComponent: () => import('./template/client-template/client-template.component').then(m => m.ClientTemplateComponent)
+        path: '',        
+        redirectTo: 'pages/dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'pages/dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
     ]
   },
