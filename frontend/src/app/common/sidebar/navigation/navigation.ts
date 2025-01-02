@@ -35,9 +35,18 @@ const NavigationItems = [
         url: '/dashboard',
         icon: 'feather icon-home',
         classes: 'nav-item'
+      },
+      {
+        id: 'client',
+        title: 'Manage Client',
+        type: 'item',
+        url: '/client',
+        icon: 'feather icon-home',
+        classes: 'nav-item'
       }
     ]
-  }
+  },
+  
 ];
 
 @Injectable()
