@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 // check the user login
 exports.loginUser = (loginData, callback) => {
     const { email, password } = loginData;
-    const query = `SELECT * FROM public."psoMaster" WHERE LOWER("vEmail") = LOWER('${email}')`;
+    const query = `SELECT * FROM public."pos_admin" WHERE LOWER("vEmail") = LOWER('${email}')`;
     db.query(query, (err, results) => {
         if (err) {
             return callback(err);
@@ -23,7 +23,6 @@ exports.loginUser = (loginData, callback) => {
             if (err) {
                 return callback(err);
             }
-            console.log(isMatch);
             // If password doesn't match
             if (!isMatch) {
                 return callback(null, null); // Invalid password
@@ -47,7 +46,7 @@ exports.clientSignup = (signinData, callback) => {
             console.error('Error generating hash:', err);
             return;
         }
-        const query = `INSERT INTO public."psoMaster" ("vUserName", "vEmail", "vPassword", "eStatus") VALUES ($1, $2, $3, $4)`;
+        const query = `INSERT INTO public."pos_admin" ("vUserName", "vEmail", "vPassword", "eStatus") VALUES ($1, $2, $3, $4)`;
         const values = [username, email, hash, '0'];
         db.query(query, values, (err, results) => {
             if (err) {

@@ -1,1 +1,76 @@
-<p>user-add works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="javascript:" [formGroup]="addClientForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">First Name</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" formControlName="fname" [ngClass]="{ 'is-invalid': submitted && f['fname'].errors }"/>
+                        <div *ngIf="submitted && f['fname'].errors" class="invalid-feedback">
+                            <div *ngIf="f['fname'].errors['incorrect']">First Name is invalid</div>
+                            <div *ngIf="f['fname'].errors['required']">First Name is Required</div>
+                          </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" formControlName="lname" [ngClass]="{ 'is-invalid': submitted && f['lname'].errors }"/>
+                        <div *ngIf="submitted && f['lname'].errors" class="invalid-feedback">
+                            <div *ngIf="f['lname'].errors['incorrect']">Last Name is invalid</div>
+                            <div *ngIf="f['lname'].errors['required']">Last Name is Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">User Name</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="User Name" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
+                        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                            <div *ngIf="f['username'].errors['incorrect']">UserName is invalid</div>
+                            <div *ngIf="f['username'].errors['required']">UserName is Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Email</label>
+                        <input type="email" class="form-control" id="inputPassword4" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"/>
+                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['exist']">Email is Already exist</div>
+                            <div *ngIf="f['email'].errors['required']">Email is Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Password</label>
+                        <input type="password" class="form-control" id="inputEmail4" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
+                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                            <div *ngIf="f['password'].errors['incorrect']">Password is invalid</div>
+                            <div *ngIf="f['password'].errors['required']">Password is Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">User Role</label>
+                        <select class="form-control" id="inputPassword4" formControlName="userrole" [ngClass]="{ 'is-invalid': submitted && f['userrole'].errors }">
+                            <option value="">Select User Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Supervisor</option>
+                            <option value="3">Employee</option>
+                        </select>
+                        <div *ngIf="submitted && f['userrole'].errors" class="invalid-feedback">
+                            <div *ngIf="f['userrole'].errors['incorrect']">User Role is invalid</div>
+                            <div *ngIf="f['userrole'].errors['required']">User Role is Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress"  formControlName="address" placeholder="Address"  [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"/>
+                    <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                        <div *ngIf="f['address'].errors['incorrect']">Address is invalid</div>
+                        <div *ngIf="f['address'].errors['required']">Address is Required</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

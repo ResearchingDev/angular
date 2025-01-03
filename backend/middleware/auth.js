@@ -7,10 +7,8 @@ const verifyToken = (req, res, next) => {
     if (!authHeader) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
-
-    const token = authHeader.split(' ')[1]; // Bearer <token>
-
-    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    // const token = authHeader.split(' ')[1]; // Bearer <token>
+    jwt.verify(authHeader, SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: 'Invalid token.' });
         }

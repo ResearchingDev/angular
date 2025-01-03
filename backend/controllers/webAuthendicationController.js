@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 exports.clientLogin = (req, res) => {
     const loginData = req.body;
     webAuthendicationModel.loginUser(loginData, (err, user) => {
-      console.log(user);
         if (err) {
             return res.status(500).json({ 
               status: 500,

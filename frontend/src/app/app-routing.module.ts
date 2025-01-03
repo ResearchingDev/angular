@@ -32,6 +32,16 @@ const routes: Routes = [
         loadComponent: () =>
           import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
+      {
+        path: 'client',
+        loadComponent: () =>
+          import('./pages/manage-users/manage-users.component').then((m) => m.ManageUsersComponent),
+      },
+      {
+        path: 'client/add',
+        loadComponent: () =>
+          import('./pages/user-add/user-add.component').then((m) => m.UserAddComponent),
+      },
     ],
   },
 ];

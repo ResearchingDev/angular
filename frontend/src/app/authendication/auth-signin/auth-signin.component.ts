@@ -33,6 +33,7 @@ export class AuthSigninComponent {
       this.submitted=false;
       this.authService.userLogin(this.signupForm.value).subscribe((data:any) => {
         this.response=data;
+        localStorage.setItem('api_token', api_token);
         this.router.navigate(['dashboard']);
       },(err)=>{
         this.response=err.error;
