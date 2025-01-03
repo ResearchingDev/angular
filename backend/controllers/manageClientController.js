@@ -4,8 +4,6 @@ const dotenv = require('dotenv');
 
 //Get all client details
 exports.getClient = (req, res) => {
-  console.log('1');
-
   manageClientModel.getClient((err, users) => {
     if (err) return res.status(500).json({ error: 'Failed to fetch users' });
     res.status(200).json(users.rows);
