@@ -1,14 +1,14 @@
 <header>
   <div class="m-header" [style.display]="this.headerStyle">
-    <a class="mobile-menu" id="mobile-collapse1" href="javascript:" (click)="this.NavCollapsedMob.emit()"><span></span></a>
-    <a [routerLink]="['/dashboard']" class="b-brand">
+    <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
+    <a class="b-brand">
       <div class="b-bg">
         <i class="feather icon-trending-up"></i>
       </div>
       <span class="b-title">POS</span>
     </a>
   </div>
-  <a class="mobile-menu" [ngClass]="{ on: this.menuClass }" id="mobile-header" href="javascript:" (click)="toggleMobOption()">
+  <a class="mobile-menu" id="mobile-header" href="javascript:" (click)="toggleMobOption()">
     <i class="feather icon-more-horizontal"></i>
   </a>
   <div class="collapse navbar-collapse" [style.display]="this.collapseStyle">

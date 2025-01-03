@@ -1,9 +1,20 @@
-<div class="layout">
-    <app-header></app-header>
-    <div class="content-wrapper">
+<div class="layout">    
+    <div class="content-wrapper">        
         <app-sidebar></app-sidebar>
         <main class="content">
-            <router-outlet></router-outlet>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                        <div class="page-wrapper">
+                            <router-outlet></router-outlet>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <app-footer></app-footer>
