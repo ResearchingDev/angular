@@ -40,7 +40,7 @@ const NavigationItems = [
         id: 'client',
         title: 'Manage Client',
         type: 'item',
-        url: '/manage-users',
+        url: '/client',
         icon: 'feather icon-home',
         classes: 'nav-item'
       }

@@ -33,7 +33,7 @@ export class AuthSignupComponent {
       this.submitted=false;
       this.authService.userSignup(this.signinForm.value).subscribe((data) => {
         this.response=data;
-        this.router.navigate(['auth/signup']);
+        this.router.navigate(['client']);
       },(err)=>{
         this.response=err.error;
         this.submitted=true;
