@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { DataTablesModule } from "angular-datatables";
 // project import
 import { AppComponent } from './app.component';
 
@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     HttpClientModule,
+    DataTablesModule
   ],
   // providers: [NavigationItem],
   bootstrap: [AppComponent]

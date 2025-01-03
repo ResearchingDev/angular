@@ -12,5 +12,7 @@ router.post('/userSignup', webAuthController.clientSignup);
 
 router.use(verifyToken);
 
-router.post('/addClient',manageClientController.addClient)
+router.post('/addClient',manageClientController.addClient);
+router.get('/getClient',manageClientController.getClient)
+
 module.exports = router;
