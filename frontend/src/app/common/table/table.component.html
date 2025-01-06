@@ -7,11 +7,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of tableData">
-        <td *ngFor="let cell of row">{{ cell }}</td>
+        <ng-container *ngFor="let cell of row; let i = index">
+          <td *ngIf="i !== 0">{{ cell }}</td>
+        </ng-container>
         <td>
             <div class="w60">
-            <button class="btn btn-icon btn-rounded"><i class="fas fa-pencil-alt"></i></button>
-            <button class="btn btn-icon btn-rounded" ><i class="fas fa-trash"></i></button>
+            <button class="btn btn-icon btn-rounded"><i class="fas fa-pencil-alt" (click)="onEdit(row[0])"></i></button>
+            <button class="btn btn-icon btn-rounded" ><i class="fas fa-trash" (click)="onDelete(row[0])"></i></button>
             </div>
         </td>
       </tr>

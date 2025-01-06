@@ -1,5 +1,5 @@
 import { Component, OnInit  ,ViewChild} from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule ,Router} from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
@@ -29,17 +29,29 @@ export class ManageUsersComponent implements OnInit {
 
   // Define rows for the table
   body: any[] = [];
-  constructor(public ManageClientService:ManageClientService) {}
+  constructor(public ManageClientService:ManageClientService,private router: Router) {}
 
   ngOnInit(): void {
     this.ManageClientService.getClientDetails().subscribe((response:any)=>{
-      this.headers = ['First Name','Last Name','Email','Action'];
+      this.headers = ['First Name','Last Name','Email'];
       this.body = response;
-      console.log(this.body);
-      console.log(this.headers);
-
     });
   }
+  // Method to handle edit action
+  onEdit(id: number): void {
+    let user_id = Number(id);
 
+    if (!isNaN(user_id)) {
+       console.log('navigate.');
+    } else {
+      console.log('Invalid ID, cannot navigate.');
+    }
+    // this.router.navigate([`client/edit/${user_id}`]);
+  }
+
+  // Method to handle delete action
+  onDelete(id: any): void {
+    console.log('Delete ID:', id);
+  }
  
 }

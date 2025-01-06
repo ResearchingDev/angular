@@ -20,3 +20,12 @@ exports.addClient = (req, res) => {
     res.status(201).send({ message: 'User added successfully'});
   });
 };
+//Get client details by ID
+exports.getClientDetailById = (req,res)=>{
+  const getClientData = req.body;
+  manageClientModel.getClientDetailById(getClientData, (err, user) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch users' });
+    const formattedRows = user.rows.map(user => Object.values(user));
+    res.status(200).json(formattedRows);
+  });
+}

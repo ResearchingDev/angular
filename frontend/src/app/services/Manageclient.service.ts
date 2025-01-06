@@ -25,4 +25,14 @@ export class ManageClientService {
     const body = data;
     return this.httpClient.post(configData.API_URL+ 'addClient' , body, {headers : reqHeader});
   }
+  getClientDetailById(data:any){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + API_TOKEN
+    });
+    const body = {
+      'user_id': data
+    };
+    return this.httpClient.post(configData.API_URL+'getClientDetailById',body,{headers : reqHeader})
+  }
 }

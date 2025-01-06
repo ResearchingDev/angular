@@ -42,6 +42,11 @@ const routes: Routes = [
         loadComponent: () =>
           import('./pages/user-add/user-add.component').then((m) => m.UserAddComponent),
       },
+      {
+        path: 'client/edit/:id',
+        loadComponent: () =>
+          import('./pages/user-add/user-add.component').then((m) => m.UserAddComponent),
+      },
     ],
   },
 ];

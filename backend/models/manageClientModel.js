@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 //Get all client details
 exports.getClient = (callback) => {
-    db.query('SELECT fname,lname,email FROM pos_users', (err, results) => {
+    db.query('SELECT user_id,fname,lname,email FROM pos_users', (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });
@@ -23,3 +23,12 @@ exports.addClientTableData = (addClientData, callback) => {
         callback(null, results.rows); // `results.rows` contains the inserted data
     });
 }
+
+//Get client details by Id
+exports.getClientDetailById = (user_data , callback) => {
+    const { user_id } = user_data;
+    db.query(`SELECT user_id,fname,lname,email FROM pos_users where user_id = '${user_id}'`, (err, results) => {
+        if (err) return callback(err, null);
+        return callback(null, results);
+    });
+};

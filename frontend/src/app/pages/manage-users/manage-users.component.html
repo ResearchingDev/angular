@@ -2,7 +2,7 @@
     <div class="col-xl-12">
         <button type="button" [routerLink]="['/client/add']" class="btn btn-info float-end">Add Client</button>
         <div class="table-responsive w-100">
-          <app-table [tableHeaders]="headers" [tableData]="body"></app-table>
+          <app-table [tableHeaders]="headers" [tableData]="body" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-table>
         </div>
     </div>
 </div>

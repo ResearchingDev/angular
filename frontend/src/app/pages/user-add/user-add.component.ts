@@ -14,19 +14,33 @@ import { Router } from '@angular/router';
 export class UserAddComponent {
   addClientForm!: FormGroup;
   submitted = false;
+  href:any;
   public response:any;
   constructor(private ManageClientService: ManageClientService,private router: Router) {} 
   ngOnInit(): void {
-    // Initialize the form
-    this.addClientForm = new FormGroup({
-      fname: new FormControl('', [Validators.required]),
-      lname: new FormControl('', [Validators.required]), 
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      username: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      userrole: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-    });
+    this.href = this.router.url;
+    var id = this.href.substring(this.href.lastIndexOf('/') + 1); 
+    console.log(typeof id);
+
+    if (typeof id === 'number') {
+      console.log(id);
+
+      this.ManageClientService.getClientDetailById(id).subscribe((response:any)=>{
+       console.log(response);
+      });
+      return;
+    }else{
+      // Initialize the form
+      this.addClientForm = new FormGroup({
+        fname: new FormControl('', [Validators.required]),
+        lname: new FormControl('', [Validators.required]), 
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        username: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        userrole: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required]),
+      });
+    }
   }
 
   get f(): { [key: string]: AbstractControl } {
