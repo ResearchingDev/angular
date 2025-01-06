@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { AuthService } from './services/authendication.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { event } from 'jquery';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/accessToken.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,13 @@ import { event } from 'jquery';
     HttpClientModule,
     DataTablesModule
   ],
-  // providers: [NavigationItem],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
