@@ -6,7 +6,8 @@ const dotenv = require('dotenv');
 exports.getClient = (req, res) => {
   manageClientModel.getClient((err, users) => {
     if (err) return res.status(500).json({ error: 'Failed to fetch users' });
-    res.status(200).json(users.rows);
+    const formattedRows = users.rows.map(user => Object.values(user));
+    res.status(200).json(formattedRows);
   });
 };
 //Add New client

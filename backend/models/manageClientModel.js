@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 //Get all client details
 exports.getClient = (callback) => {
-    db.query('SELECT * FROM pos_users', (err, results) => {
+    db.query('SELECT fname,lname,email FROM pos_users', (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });

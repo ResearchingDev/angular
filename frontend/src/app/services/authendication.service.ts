@@ -10,6 +10,14 @@ import * as configData from '../../config';
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
+  //Checked the login
+  isLogin(){
+    let AUTH_STATUS = localStorage.getItem('api_token');
+    if(AUTH_STATUS == null || AUTH_STATUS == undefined)
+      return 0;
+    else 
+      return 1;
+  }
   userLogin(data: any) {
     const headers = { Authorization: configData.API_TOKEN };
     const body = data;
