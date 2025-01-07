@@ -47,6 +47,11 @@ const routes: Routes = [
         loadComponent: () =>
           import('./pages/user-add/user-add.component').then((m) => m.UserAddComponent),
       },
+      {
+        path: 'role',
+        loadComponent: () =>
+          import('./pages/manage-role/manage-role.component').then((m) => m.ManageRoleComponent),
+      },
     ],
   },
 ];
