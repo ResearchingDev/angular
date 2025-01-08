@@ -41,7 +41,7 @@ const NavigationItems = [
         title: 'Manage Client',
         type: 'item',
         url: '/client',
-        icon: 'feather icon-home',
+        icon: 'feather icon-user',
         classes: 'nav-item'
       },
       {
@@ -49,7 +49,7 @@ const NavigationItems = [
         title: 'Manage Role',
         type: 'item',
         url: '/role',
-        icon: 'feather icon-home',
+        icon: 'feather icon-server',
         classes: 'nav-item'
       }
     ]

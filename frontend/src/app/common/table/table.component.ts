@@ -17,7 +17,7 @@ export class TableComponent {
   @Output() delete = new EventEmitter<any>();
 
   // Emit the selected ID when edit is clicked
-   onEdit(id: number): void {
+  onEdit(id: number): void {
     this.edit.emit(id);  // Emit the ID to the parent component
   }
 

@@ -1,21 +1,21 @@
 // angular import
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 // project import
 import { NavigationItem } from '../../navigation';
 import { RouterLink,RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-item',
   standalone: true,
-  imports :[RouterLink,RouterLinkActive],
+  imports :[RouterLink,RouterLinkActive,CommonModule],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })
 export class NavItemComponent {
   // public props
   @Input() item: NavigationItem;
-
   // public method
   closeOtherMenu(event) {
     const ele = event.target;
