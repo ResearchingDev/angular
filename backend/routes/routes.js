@@ -15,5 +15,7 @@ router.use(verifyToken);
 router.post('/addClient',manageClientController.addClient);
 router.get('/getClient',manageClientController.getClient)
 router.post('/getClientDetailById',manageClientController.getClientDetailById)
+router.post('/editClient',manageClientController.editClient)
+
 
 module.exports = router;

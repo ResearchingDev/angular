@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <form action="javascript:" [formGroup]="addClientForm" (ngSubmit)="onSubmit()">
+            <form action="javascript:" [formGroup]="ClientForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">First Name</label>
@@ -69,7 +69,7 @@
                         <div *ngIf="f['address'].errors['required']">Address is Required</div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">{{button_type}}</button>
             </form>
         </div>
     </div>

@@ -40,13 +40,9 @@ export class ManageUsersComponent implements OnInit {
   // Method to handle edit action
   onEdit(id: number): void {
     let user_id = Number(id);
-
-    if (!isNaN(user_id)) {
-       console.log('navigate.');
-    } else {
-      console.log('Invalid ID, cannot navigate.');
-    }
-    // this.router.navigate([`client/edit/${user_id}`]);
+    if (typeof user_id == "number") {
+      this.router.navigate([`client/edit/${user_id}`]);
+    } 
   }
 
   // Method to handle delete action
