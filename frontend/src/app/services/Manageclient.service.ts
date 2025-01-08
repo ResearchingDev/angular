@@ -43,4 +43,12 @@ export class ManageClientService {
     const body = data;
     return this.httpClient.post(configData.API_URL+ 'editClient' , body, {headers : reqHeader});
   }
+  deleteClient(data:any){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + API_TOKEN
+    });
+    const body = data;
+    return this.httpClient.post(configData.API_URL+ 'deleteClient' , body, {headers : reqHeader});
+  }
 }

@@ -15,6 +15,7 @@ exports.getDashboardClientData = (clientData, callback) => {
             COUNT(CASE WHEN userrole::integer = 3 THEN 1 END) AS employee
         FROM public.pos_users
         WHERE EXTRACT(YEAR FROM created_at) = $1::integer
+        AND status = '0'
         GROUP BY EXTRACT(MONTH FROM created_at)
         ORDER BY month`,
         [year], // Pass the year as an integer here

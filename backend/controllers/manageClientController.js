@@ -31,11 +31,20 @@ exports.getClientDetailById = (req,res)=>{
 //Edit client
 exports.editClient = (req, res) => {
   const editClientData = req.body;
-  console.log(editClientData);
   manageClientModel.editClientData(editClientData, (err, user) => {
     if (err) {
       return res.status(500).send({ error: err });
     }
     res.status(201).send({ message: 'User edited successfully'});
+  });
+};
+//Delete client
+exports.deleteClient = (req, res) => {
+  const deleteClientData = req.body;
+  manageClientModel.deleteClient(deleteClientData, (err, user) => {
+    if (err) {
+      return res.status(500).send({ error: err });
+    }
+    res.status(201).send({ code: '200',message: 'User deleted successfully'});
   });
 };

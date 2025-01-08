@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
 import { TableComponent } from 'src/app/common/table/table.component';
+import Swal from 'sweetalert2';
+
 class DataTablesResponse {
   data: any[] | undefined;
   recordsFiltered: number | undefined;
@@ -19,6 +21,7 @@ class DataTablesResponse {
 })
 
 export class ManageUsersComponent implements OnInit {
+  display: boolean = false;
   // @ViewChild(DataTableDirective)
   // dtElement!: DataTableDirective;
   // dtOptions: DataTables.Settings = {};  
@@ -29,6 +32,7 @@ export class ManageUsersComponent implements OnInit {
 
   // Define rows for the table
   body: any[] = [];
+  response:any;
   constructor(public ManageClientService:ManageClientService,private router: Router) {}
 
   ngOnInit(): void {
@@ -47,7 +51,38 @@ export class ManageUsersComponent implements OnInit {
 
   // Method to handle delete action
   onDelete(id: any): void {
-    console.log('Delete ID:', id);
+    Swal.fire({
+      title: 'Are you sure want to remove?',
+      text: 'You will not be able to recover this record!',
+      icon: 'warning',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+      customClass: {
+        popup: 'custom-swal-popup',  // Add custom class to the popup
+        confirmButton: 'btn btn-primary px-4',  // Custom button for confirm
+        cancelButton: 'btn btn-danger ms-2 px-4',  // Custom button for cancel
+      }
+    }).then((result) => {
+      if (result.value) {
+        var client_id = {'id':id}
+        this.ManageClientService.deleteClient(client_id)
+        .subscribe(resp => {
+          this.response = resp;
+          if (this.response.code == 200) {
+            // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            //   // Destroy the table first
+            //   dtInstance.destroy();
+            //   // Call the dtTrigger to rerender again
+            //   this.dtTrigger.next();
+            // });
+            Swal.fire('Deleted', this.response.message, 'success').then(function () {
+            });
+          }
+        });
+      }
+    });
   }
- 
 }

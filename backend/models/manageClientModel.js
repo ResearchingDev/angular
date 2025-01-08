@@ -9,7 +9,7 @@ exports.getClient = (callback) => {
                 WHEN userrole::integer = '1' THEN 'admin'
                 WHEN userrole::integer = '2' THEN 'supervisor'
                 WHEN userrole::integer = '3' THEN 'employee'
-            END AS role FROM pos_users`, (err, results) => {
+            END AS role FROM pos_users where status = '0'`, (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });
@@ -54,3 +54,12 @@ exports.editClientData = (addClientData, callback) => {
         callback(null, results.rows); // `results.rows` contains the inserted data
     });
 }
+
+//Delete client
+exports.deleteClient = (user_data , callback) => {
+    const { id } = user_data;
+    db.query(`UPDATE public.pos_users SET status = 1 WHERE user_id = '${id}'`, (err, results) => {
+        if (err) return callback(err, null);
+        return callback(null, results);
+    });
+};

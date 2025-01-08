@@ -15,6 +15,7 @@ router.post('/addClient',manageClientController.addClient);
 router.get('/getClient',manageClientController.getClient)
 router.post('/getClientDetailById',manageClientController.getClientDetailById);
 router.post('/editClient',manageClientController.editClient);
+router.post('/deleteClient',manageClientController.deleteClient);
 //Dashboard Controller
 router.post('/getDashboardClientData',dashboardController.getDashboardClientData);
 
