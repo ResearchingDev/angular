@@ -33,7 +33,7 @@ export class ManageUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.ManageClientService.getClientDetails().subscribe((response:any)=>{
-      this.headers = ['First Name','Last Name','Email'];
+      this.headers = ['First Name','Last Name','Email','User Role'];
       this.body = response;
     });
   }

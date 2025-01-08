@@ -5,7 +5,11 @@ const jwt = require('jsonwebtoken');
 
 //Get all client details
 exports.getClient = (callback) => {
-    db.query('SELECT user_id,fname,lname,email FROM pos_users', (err, results) => {
+    db.query(`SELECT user_id,fname,lname,email,CASE 
+                WHEN userrole::integer = '1' THEN 'admin'
+                WHEN userrole::integer = '2' THEN 'supervisor'
+                WHEN userrole::integer = '3' THEN 'employee'
+            END AS role FROM pos_users`, (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });

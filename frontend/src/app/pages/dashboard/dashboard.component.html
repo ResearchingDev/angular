@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [yaxis]="chartOptions.yaxis"
+          [tooltip]="chartOptions.tooltip"
+          [xaxis]="chartOptions.xaxis"
+        ></apx-chart>
+    </div>
+</div>
