@@ -13,6 +13,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { event } from 'jquery';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/accessToken.interceptor';
+import { NgToastModule } from 'ng-angular-popup';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { AuthInterceptor } from './services/accessToken.interceptor';
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    NgToastModule
   ],
   providers: [
     {
@@ -43,7 +45,7 @@ export class AppModule {
       if(events instanceof NavigationEnd){
         this.currentUrl=events.url;
         this.value = this.AuthService.isLogin();
-        if(this.value==0)
+        if(this.value==0 && (this.currentUrl != "/auth/signup"))
           this.router.navigate(['auth/signin']);
         else if(this.value==1 && (this.currentUrl == "/auth/signin" || this.currentUrl == "/auth/signup"))
           this.router.navigate(['dashboard']);

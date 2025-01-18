@@ -3,6 +3,8 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/authendication.service';
 import { AbstractControl, FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgToastService} from 'ng-angular-popup';
+import { Language } from 'src/app/common/centerlized/language.enum';
 
 @Component({
   selector: 'app-auth-signin',
@@ -16,7 +18,8 @@ export class AuthSigninComponent {
   public response:any;
   signupForm!: FormGroup;
   submitted = false;
-  constructor(private authService: AuthService,private router: Router) {} 
+  Language = Language; 
+  constructor(private toast: NgToastService,private authService: AuthService,private router: Router) {} 
   ngOnInit(): void {
     // Initialize the form
     this.signupForm = new FormGroup({
@@ -36,6 +39,7 @@ export class AuthSigninComponent {
         const api_token = this.response.user.token;
         localStorage.setItem('api_token', api_token);
         this.router.navigate(['dashboard']);
+        this.toast.success(this.response.message, Language.SUCCESS, 3000);
       },(err)=>{
         this.response=err.error;
         this.submitted=true;

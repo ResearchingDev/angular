@@ -3,6 +3,9 @@ import { AbstractControl, FormGroup, FormControl, Validators, ReactiveFormsModul
 import { CommonModule } from '@angular/common';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
 import { Router } from '@angular/router';
+import { NgToastService} from 'ng-angular-popup';
+import { Language } from 'src/app/common/centerlized/language.enum';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-user-add',
@@ -20,7 +23,8 @@ export class UserAddComponent {
   action: string = 'add';
   button_type: string = 'Save';
   update_id:any;
-  constructor(private ManageClientService: ManageClientService,private router: Router) {} 
+  Language = Language; 
+  constructor(private CommonService: CommonService,private toast: NgToastService,private ManageClientService: ManageClientService,private router: Router) {} 
   ngOnInit(): void {
     this.href = this.router.url;
     var id = this.href.substring(this.href.lastIndexOf('/') + 1); 
@@ -60,11 +64,16 @@ export class UserAddComponent {
       var url = (this.action == 'add')?'addClient':'editClient';
       this.ClientForm.value.update_id = this.update_id;
       this.ManageClientService[url](this.ClientForm.value).subscribe((data: any) => {
-        this.router.navigate(['client']);
+        this.response=data;
+        this.toast.success(this.response.message, Language.SUCCESS, 3000);
+        // this.router.navigate(['client']);
       },(err: { error: { error: any; }; })=>{
         this.response=err.error.error;
         this.submitted=true;
         if (this.response.detail.includes('email') && this.response.detail.includes('exists') ) {
+          // this.toast.success(this.response.message, Language.SUCCESS, 3000);
+          var msg = this.CommonService.messageConvertor('Email',Language.ALREADY_EXIST);
+          this.toast.danger(msg, Language.ERROR, 3000);
           this.f['email'].setErrors({ 'exist': true });
         }
       });
@@ -72,5 +81,20 @@ export class UserAddComponent {
       this.submitted=true;
 
     }
+  }
+  showSuccess() {
+    this.toast.success('Success Message', 'Title', 3000);
+  }
+
+  showError() {
+    this.toast.danger('Error Message', 'Error', 3000);
+  }
+
+  showInfo() {
+    this.toast.info('Info Message', 'Information', 3000);
+  }
+
+  showWarning() {
+    this.toast.warning('Warning Message', 'Warning', 3000);
   }
 }

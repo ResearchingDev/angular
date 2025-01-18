@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToasterPosition } from './common/centerlized/toaster-position.enum';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'datta-able';
   showLayout = true;
-
+  ToasterPosition = ToasterPosition; 
   constructor() {}
-
   ngOnInit(): void {
-    
   }
 }
