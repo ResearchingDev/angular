@@ -1,17 +1,17 @@
 const manageClientModel = require('../models/manageClientModel.js');
-const SECRET_KEY = process.env.SECRET_KEY;
-const dotenv = require('dotenv');
+const { validateForm, handleValidationErrors } = require('../common/validators.js');
+
 
 //Get all client details
 exports.getClient = (req, res) => {
   manageClientModel.getClient((err, users) => {
     if (err) return res.status(500).json({ error: 'Failed to fetch users' });
-    const formattedRows = users.rows.map(user => Object.values(user));
+    const formattedRows = users.map(user => Object.values(user));
     res.status(200).json(formattedRows);
   });
 };
 //Add New client
-exports.addClient = (req, res) => {
+exports.addClient = [...validateForm,handleValidationErrors,(req, res) => {
   const addClientData = req.body;
   manageClientModel.addClientData(addClientData, (err, user) => {
     if (err) {
@@ -19,7 +19,7 @@ exports.addClient = (req, res) => {
     }
     res.status(201).send({ message: 'User added successfully'});
   });
-};
+}];
 //Get client details by ID
 exports.getClientDetailById = (req,res)=>{
   const getClientData = req.body;

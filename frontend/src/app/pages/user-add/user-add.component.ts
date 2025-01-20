@@ -66,13 +66,18 @@ export class UserAddComponent {
       this.ManageClientService[url](this.ClientForm.value).subscribe((data: any) => {
         this.response=data;
         this.toast.success(this.response.message, Language.SUCCESS, 3000);
-        // this.router.navigate(['client']);
-      },(err: { error: { error: any; }; })=>{
-        this.response=err.error.error;
+        this.router.navigate(['client']);
+      },(err: { error: {
+        errors(errors: any): unknown; error: Array<{ msg: string }>  
+      }; })=>{
         this.submitted=true;
-        if (this.response.detail.includes('email') && this.response.detail.includes('exists') ) {
-          // this.toast.success(this.response.message, Language.SUCCESS, 3000);
-          var msg = this.CommonService.messageConvertor('Email',Language.ALREADY_EXIST);
+        if(err.error.errors){
+          this.response=err.error.errors[0];
+          this.toast.danger(err.error.errors[0].msg, Language.ERROR, 3000);
+          this.f[err.error.errors[0].path].setErrors({ 'incorrect': true });
+        }else{
+          this.response=err.error.error;
+          var msg = this.CommonService.messageConvertor('Email',Language.ALREADY_EXIST,"{TYPE}");
           this.toast.danger(msg, Language.ERROR, 3000);
           this.f['email'].setErrors({ 'exist': true });
         }

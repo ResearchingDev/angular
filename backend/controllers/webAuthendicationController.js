@@ -29,7 +29,6 @@ exports.clientSignup = (req, res) => {
   const signInData = req.body;
     webAuthendicationModel.clientSignup(signInData, (err) => {
       if (err) {
-        console.error('Error adding Admin:', err);
         return res.status(500).send({ error: 'Failed to add admin' });
       }
       res.status(201).send({ message: 'Admin added successfully'});

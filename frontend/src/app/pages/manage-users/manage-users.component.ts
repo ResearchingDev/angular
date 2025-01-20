@@ -43,9 +43,8 @@ export class ManageUsersComponent implements OnInit {
   }
   // Method to handle edit action
   onEdit(id: number): void {
-    let user_id = Number(id);
-    if (typeof user_id == "number") {
-      this.router.navigate([`client/edit/${user_id}`]);
+    if (typeof id == "string") {
+      this.router.navigate([`client/edit/${id}`]);
     } 
   }
 

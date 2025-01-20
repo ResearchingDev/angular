@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
   constructor() { }
-  messageConvertor(a,b){
-    return b.replace("{TYPE}", a);
+  messageConvertor(a,b,c){
+    return b.replace(c, a);
   }
 }

@@ -1,7 +1,5 @@
 const db = require('../config/db.config');
-const bcrypt = require('bcrypt');
-const SECRET_KEY = process.env.SECRET_KEY;
-const jwt = require('jsonwebtoken');
+const { encryptId,decryptId } = require('../common/jwtUtils')
 
 //Get all client details
 exports.getClient = (callback) => {
@@ -11,7 +9,14 @@ exports.getClient = (callback) => {
                 WHEN userrole::integer = '3' THEN 'employee'
             END AS role FROM pos_users where status = '0'`, (err, results) => {
         if (err) return callback(err, null);
-        return callback(null, results);
+        const encryptResults = results.rows.map(row=>{
+            const encryptedUserId = encryptId(row.user_id);
+            return {
+                ...row,
+                user_id:encryptedUserId
+            }
+        })
+        return callback(null, encryptResults);
     });
 };
 
@@ -31,7 +36,8 @@ exports.addClientData = (addClientData, callback) => {
 //Get client details by Id
 exports.getClientDetailById = (user_data , callback) => {
     const { user_id } = user_data;
-    db.query(`SELECT user_id,fname,lname,password,username,email,userrole,address,status FROM pos_users where user_id = '${user_id}'`, (err, results) => {
+    const decrypted_user_id = decryptId(user_id);
+    db.query(`SELECT user_id,fname,lname,password,username,email,userrole,address,status FROM pos_users where user_id = '${decrypted_user_id}'`, (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });
@@ -48,7 +54,6 @@ exports.editClientData = (addClientData, callback) => {
     const values = [fname, lname, password, username, email, userrole, address, "admin", update_id];
     db.query(query, values, (err, results) => {
         if (err) {
-            console.log(err);
             return callback(err);
         }
         callback(null, results.rows); // `results.rows` contains the inserted data
