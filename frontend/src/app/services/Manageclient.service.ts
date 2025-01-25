@@ -10,12 +10,12 @@ var API_TOKEN = localStorage.getItem('api_token');
 })
 export class ManageClientService {
   constructor(private httpClient: HttpClient) {}
-  getClientDetails(){
+  getClientDetails(dataTablesParameters: any){
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + API_TOKEN
     });
-    return this.httpClient.get(configData.API_URL+ 'getClient' ,{headers : reqHeader});
+    return this.httpClient.post(configData.API_URL+ 'getClient' ,dataTablesParameters,{headers : reqHeader});
   }
   addClient(data:any){
     var reqHeader = new HttpHeaders({

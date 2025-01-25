@@ -24,7 +24,7 @@
       "ES2022", // this will auto target to latest by angular cli
       "dom"
     ],
-    "types": ["datatables.net"]
+    "types": ["jquery","datatables.net"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -48,7 +48,7 @@ const NavigationItems = [
         id: 'role',
         title: 'Manage Role',
         type: 'item',
-        url: '/role',
+        url: '/role/manage',
         icon: 'feather icon-server',
         classes: 'nav-item'
       }

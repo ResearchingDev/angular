@@ -9,10 +9,10 @@ const verifyToken = require('../middleware/auth');
 router.post('/userLogin', webAuthController.clientLogin);
 router.post('/userSignup', webAuthController.clientSignup);
 
-router.use(verifyToken);
+// router.use(verifyToken);
 //Client Controller
 router.post('/addClient',manageClientController.addClient);
-router.get('/getClient',manageClientController.getClient)
+router.post('/getClient',manageClientController.getClient)
 router.post('/getClientDetailById',manageClientController.getClientDetailById);
 router.post('/editClient',manageClientController.editClient);
 router.post('/deleteClient',manageClientController.deleteClient);

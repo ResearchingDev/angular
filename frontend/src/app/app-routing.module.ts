@@ -49,8 +49,13 @@ const routes: Routes = [
       },
       {
         path: 'role',
-        loadComponent: () =>
-          import('./pages/manage-role/manage-role.component').then((m) => m.ManageRoleComponent),
+        children: [
+          {
+            path: 'manage',
+            loadComponent: () =>
+              import('./pages/manage-users-role/manage-users-role.component').then((m) => m.ManageUsersRoleComponent),
+          }
+        ],
       },
     ],
   },

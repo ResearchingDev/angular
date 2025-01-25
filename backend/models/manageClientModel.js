@@ -2,21 +2,64 @@ const db = require('../config/db.config');
 const { encryptId,decryptId } = require('../common/jwtUtils')
 
 //Get all client details
-exports.getClient = (callback) => {
-    db.query(`SELECT user_id,fname,lname,email,CASE 
-                WHEN userrole::integer = '1' THEN 'admin'
-                WHEN userrole::integer = '2' THEN 'supervisor'
-                WHEN userrole::integer = '3' THEN 'employee'
-            END AS role FROM pos_users where status = '0'`, (err, results) => {
+exports.getClient = (req, callback) => {
+    let { start, length, search, order, columns } = req.body;
+    start = parseInt(start) || 0;
+    length = parseInt(length) || 10;
+    let orderColumn = columns[order[0].column].data;
+    let orderDirection = order[0].dir.toUpperCase();
+
+    const validColumns = ["fname", "lname", "email", "role"];
+    if (!validColumns.includes(orderColumn)) orderColumn = "fname"; // Default sort column
+
+    // Search filter
+    let searchQuery = "";
+    let queryParams = [];
+
+    if (search && search.value) {
+        searchQuery = `AND (fname ILIKE $1 OR lname ILIKE $1 OR email ILIKE $1 OR 
+                        CASE 
+                          WHEN userrole::integer = '1' THEN 'admin'
+                          WHEN userrole::integer = '2' THEN 'supervisor'
+                          WHEN userrole::integer = '3' THEN 'employee'
+                        END ILIKE $1)`;
+        queryParams.push(`%${search.value}%`);
+    }
+
+    // Query to get total records (before filtering)
+    const totalRecordsQuery = `SELECT COUNT(*) AS total FROM pos_users WHERE status = '0'`;
+
+      // Query to get filtered records
+    const filteredQuery = `
+    SELECT user_id, fname, lname, email,
+        CASE 
+        WHEN userrole::integer = '1' THEN 'admin'
+        WHEN userrole::integer = '2' THEN 'supervisor'
+        WHEN userrole::integer = '3' THEN 'employee'
+        END AS role 
+    FROM pos_users 
+    WHERE status = '0' ${searchQuery}
+    ORDER BY ${orderColumn} ${orderDirection}
+    LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;
+    queryParams.push(length, start);
+
+    // Execute queries
+    db.query(totalRecordsQuery, [], (err, totalResult) => {
         if (err) return callback(err, null);
-        const encryptResults = results.rows.map(row=>{
-            const encryptedUserId = encryptId(row.user_id);
-            return {
-                ...row,
-                user_id:encryptedUserId
-            }
-        })
-        return callback(null, encryptResults);
+        
+        const totalRecords = totalResult.rows[0].total;
+
+        db.query(filteredQuery, queryParams, (err, results) => {
+        if (err) return callback(err, null);
+
+        // Encrypt User IDs before sending response
+        const encryptResults = results.rows.map(row => ({
+            ...row,
+            user_id: encryptId(row.user_id),
+        }));
+
+        callback(null, { totalRecords, filteredRecords: results.rowCount, data: encryptResults });
+        });
     });
 };
 

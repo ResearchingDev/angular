@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { DataTablesModule } from "angular-datatables";
 // project import
 import { AppComponent } from './app.component';
 import { AuthService } from './services/authendication.service';
@@ -25,7 +24,6 @@ import { NgToastModule } from 'ng-angular-popup';
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     HttpClientModule,
-    DataTablesModule,
     NgToastModule
   ],
   providers: [

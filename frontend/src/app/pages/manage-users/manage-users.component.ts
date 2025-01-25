@@ -1,16 +1,15 @@
-import { Component, OnInit  ,ViewChild} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { RouterModule ,Router} from '@angular/router';
 import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
 import { TableComponent } from 'src/app/common/table/table.component';
 import Swal from 'sweetalert2';
 
-class DataTablesResponse {
-  data: any[] | undefined;
-  recordsFiltered: number | undefined;
-  recordsTotal: number | undefined;
-}
+
+// ✅ Import jQuery and DataTables directly
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-dt';
 
 @Component({
   selector: 'app-manage-users',
@@ -20,26 +19,39 @@ class DataTablesResponse {
   styleUrls: ['./manage-users.component.scss']
 })
 
-export class ManageUsersComponent implements OnInit {
+export class ManageUsersComponent implements OnInit  {
   display: boolean = false;
-  // @ViewChild(DataTableDirective)
-  // dtElement!: DataTableDirective;
-  // dtOptions: DataTables.Settings = {};  
-  // dtTrigger: Subject<any> = new Subject();
-
-  // Define headers for the table
-  headers: string[] = [];
-
+  headers: string[] = ['First Name', 'Last Name', 'Email', 'User Role'];
+  dtOptions: any = {};
   // Define rows for the table
   body: any[] = [];
   response:any;
+  datas: Object;
   constructor(public ManageClientService:ManageClientService,private router: Router) {}
-
   ngOnInit(): void {
-    this.ManageClientService.getClientDetails().subscribe((response:any)=>{
-      this.headers = ['First Name','Last Name','Email','User Role'];
-      this.body = response;
-    });
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      serverSide: true,
+      pageLength: 5,
+      processing: true,
+      lengthMenu: [5, 10, 50, 100],
+      order:[[0, 'desc']],
+      ajax: (dataTablesParameters: any, callback) => {
+        this.ManageClientService.getClientDetails(dataTablesParameters).subscribe((response: any) => {
+          this.body = response.data.map(user => Object.values(user));
+          callback({
+            recordsTotal: response.totalRecords,
+            recordsFiltered: response.totalRecords,
+          });
+        });
+      },
+      columns: [
+        { data: 'fname' },
+        { data: 'lname' },
+        { data: 'email' },
+        { data: 'role' },{ data: null }
+      ]
+    };
   }
   // Method to handle edit action
   onEdit(id: number): void {
@@ -84,4 +96,5 @@ export class ManageUsersComponent implements OnInit {
       }
     });
   }
+  
 }

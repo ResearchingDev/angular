@@ -4,10 +4,9 @@ const { validateForm, handleValidationErrors } = require('../common/validators.j
 
 //Get all client details
 exports.getClient = (req, res) => {
-  manageClientModel.getClient((err, users) => {
+  manageClientModel.getClient(req,(err, users) => {
     if (err) return res.status(500).json({ error: 'Failed to fetch users' });
-    const formattedRows = users.map(user => Object.values(user));
-    res.status(200).json(formattedRows);
+    res.status(200).json(users);
   });
 };
 //Add New client
