@@ -24,6 +24,7 @@ export class UserAddComponent {
   button_type: string = 'Save';
   update_id:any;
   Language = Language; 
+  userRole:any;
   constructor(private CommonService: CommonService,private toast: NgToastService,private ManageClientService: ManageClientService,private router: Router) {} 
   ngOnInit(): void {
     this.href = this.router.url;
@@ -43,6 +44,10 @@ export class UserAddComponent {
         this.ClientForm.controls['address'].setValue(this.datas.address);
       });
     }
+    const query = `query {getUserRole {iUserRoleId vUserRole}}`;
+    this.ManageClientService.getUserRole(query).subscribe((data: any) => {
+      this.userRole=data.data.getUserRole;
+    });
     // Initialize the form
     this.ClientForm = new FormGroup({
       fname: new FormControl('', [Validators.required]),

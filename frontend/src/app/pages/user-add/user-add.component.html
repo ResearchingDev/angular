@@ -52,9 +52,7 @@
                         <label for="inputUserRole1">User Role</label>
                         <select class="form-control" id="inputUserRole1" formControlName="userrole" [ngClass]="{ 'is-invalid': submitted && f['userrole'].errors }">
                             <option value="">Select User Role</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Supervisor</option>
-                            <option value="3">Employee</option>
+                            <option *ngFor="let role of userRole" [value]="role.iUserRoleId">{{role.vUserRole}}</option>
                         </select>
                         <div *ngIf="submitted && f['userrole'].errors" class="invalid-feedback">
                             <div *ngIf="f['userrole'].errors['incorrect']">User Role is invalid</div>

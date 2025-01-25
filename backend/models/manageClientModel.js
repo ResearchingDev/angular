@@ -111,3 +111,16 @@ exports.deleteClient = (user_data , callback) => {
         return callback(null, results);
     });
 };
+
+
+//user role
+//Get all user role details
+exports.getUserRole = (callback) => {
+    db.query(`SELECT * FROM pos_user_role where "eStatus" = '0'`, (err, results) => {
+        if (err) return callback(err, null);
+        if (!Array.isArray(results.rows)) {
+            results = [results.rows];  // Wrap non-array results in an array (if necessary)
+        }
+        return callback(null, results.rows);
+    });
+};

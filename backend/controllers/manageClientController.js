@@ -47,3 +47,12 @@ exports.deleteClient = (req, res) => {
     res.status(201).send({ code: '200',message: 'User deleted successfully'});
   });
 };
+
+
+//User Role
+exports.getUserRole = (req, res) => {
+  manageClientModel.getUserRole(req,(err, users) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch users' });
+    res.status(200).json(users);
+  });
+};

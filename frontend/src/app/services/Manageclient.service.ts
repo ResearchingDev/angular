@@ -51,4 +51,14 @@ export class ManageClientService {
     const body = data;
     return this.httpClient.post(configData.API_URL+ 'deleteClient' , body, {headers : reqHeader});
   }
+
+  //User Role
+  getUserRole(query :any){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + API_TOKEN
+    });
+    var body = JSON.stringify({ query })
+    return this.httpClient.post(configData.API_URL+ 'getUserRole',body,{headers : reqHeader});
+  }
 }
