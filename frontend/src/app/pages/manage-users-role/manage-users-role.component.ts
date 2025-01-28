@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { TableComponent } from 'src/app/common/table/table.component';
 import { ManagerolesService } from 'src/app/services/manageroles.service';
 import { RouterModule ,Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
-// ✅ Import jQuery and DataTables directly
+// Import jQuery and DataTables directly
 import 'datatables.net';
 import 'datatables.net-dt';
 
@@ -15,6 +16,7 @@ import 'datatables.net-dt';
   styleUrl: './manage-users-role.component.scss'
 })
 export class ManageUsersRoleComponent {
+  @ViewChild(TableComponent) tableComponent!: TableComponent;
   headers: string[] = ['Role Name','Status'];
   body: any[] = [];
   response:any;
@@ -59,38 +61,33 @@ export class ManageUsersRoleComponent {
   
     // Method to handle delete action
     onDelete(id: any): void {
-      // Swal.fire({
-      //   title: 'Are you sure want to remove?',
-      //   text: 'You will not be able to recover this record!',
-      //   icon: 'warning',
-      //   showCancelButton: true,
-      //   allowOutsideClick: false,
-      //   allowEscapeKey: false,
-      //   confirmButtonText: 'Yes, delete it!',
-      //   cancelButtonText: 'No, keep it',
-      //   customClass: {
-      //     popup: 'custom-swal-popup',  // Add custom class to the popup
-      //     confirmButton: 'btn btn-primary px-4',  // Custom button for confirm
-      //     cancelButton: 'btn btn-danger ms-2 px-4',  // Custom button for cancel
-      //   }
-      // }).then((result) => {
-      //   if (result.value) {
-      //     var client_id = {'id':id}
-      //     this.ManageClientService.deleteClient(client_id)
-      //     .subscribe(resp => {
-      //       this.response = resp;
-      //       if (this.response.code == 200) {
-      //         // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      //         //   // Destroy the table first
-      //         //   dtInstance.destroy();
-      //         //   // Call the dtTrigger to rerender again
-      //         //   this.dtTrigger.next();
-      //         // });
-      //         Swal.fire('Deleted', this.response.message, 'success').then(function () {
-      //         });
-      //       }
-      //     });
-      //   }
-      // });
+      Swal.fire({
+        title: 'Are you sure want to remove?',
+        text: 'You will not be able to recover this record!',
+        icon: 'warning',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it',
+        customClass: {
+          popup: 'custom-swal-popup',  // Add custom class to the popup
+          confirmButton: 'btn btn-primary px-4',  // Custom button for confirm
+          cancelButton: 'btn btn-danger ms-2 px-4',  // Custom button for cancel
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var client_id = {'iUserRoleId':id}
+          this.ManagerolesService.deleteRole(client_id)
+          .subscribe(resp => {
+            this.response = resp['data'].deleteUserRole;
+            if (this.response.includes("deleted successfully")) {
+              this.tableComponent.reloadTable(); 
+              Swal.fire('Deleted', this.response.message, 'success').then(function () {
+              });
+            }
+          });
+        }
+      });
     }
 }

@@ -1,11 +1,11 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { RouterModule ,Router} from '@angular/router';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
 import { TableComponent } from 'src/app/common/table/table.component';
 import Swal from 'sweetalert2';
 
 
-// ✅ Import jQuery and DataTables directly
+//Import jQuery and DataTables directly
 import 'datatables.net';
 import 'datatables.net-dt';
 
@@ -18,6 +18,7 @@ import 'datatables.net-dt';
 })
 
 export class ManageUsersComponent implements OnInit  {
+  @ViewChild(TableComponent) tableComponent!: TableComponent;
   display: boolean = false;
   headers: string[] = ['First Name', 'Last Name', 'Email', 'User Role'];
   dtOptions: any = {};
@@ -81,12 +82,7 @@ export class ManageUsersComponent implements OnInit  {
         .subscribe(resp => {
           this.response = resp;
           if (this.response.code == 200) {
-            // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            //   // Destroy the table first
-            //   dtInstance.destroy();
-            //   // Call the dtTrigger to rerender again
-            //   this.dtTrigger.next();
-            // });
+            this.tableComponent.reloadTable(); 
             Swal.fire('Deleted', this.response.message, 'success').then(function () {
             });
           }

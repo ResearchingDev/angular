@@ -19,7 +19,7 @@ export class TableComponent implements AfterViewInit{
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
-  @ViewChild('usersTable', { static: false }) table!: ElementRef;  // ✅ Capture table reference
+  @ViewChild('usersTable', { static: false }) table!: ElementRef;  //Capture table reference
   ngOnInit(){}
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -42,5 +42,8 @@ export class TableComponent implements AfterViewInit{
   // Emit the selected ID when delete is clicked
   onDelete(id: any): void {
     this.delete.emit(id);  // Emit the ID to the parent component
+  }
+  reloadTable(): void {
+    $(this.table.nativeElement).DataTable().ajax.reload(); // Reload DataTable
   }
 }

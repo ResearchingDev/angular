@@ -72,4 +72,19 @@ export class ManagerolesService {
     };
     return this.httpClient.post(configData.API_URL + 'graphql/userRole',query,{ headers: this.getAuthHeaders() });
   }
+  deleteRole(data:any){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + API_TOKEN
+    });
+    const body = {
+      query: `
+        mutation DeleteUserRole($iUserRoleId: String!) {
+          deleteUserRole(iUserRoleId: $iUserRoleId)
+        }
+      `,
+      variables: data
+    };
+    return this.httpClient.post(configData.API_URL+'graphql/userRole',body,{headers : reqHeader})
+  }
 }

@@ -108,7 +108,8 @@ exports.editClientData = (addClientData, callback) => {
 //Delete client
 exports.deleteClient = (user_data , callback) => {
     const { id } = user_data;
-    db.query(`UPDATE public.pos_users SET status = 1 WHERE user_id = '${id}'`, (err, results) => {
+    const decrypted_user_id = decryptId(id);
+    db.query(`UPDATE public.pos_users SET status = 1 WHERE user_id = '${decrypted_user_id}'`, (err, results) => {
         if (err) return callback(err, null);
         return callback(null, results);
     });
