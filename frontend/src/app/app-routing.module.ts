@@ -54,6 +54,15 @@ const routes: Routes = [
             path: 'manage',
             loadComponent: () =>
               import('./pages/manage-users-role/manage-users-role.component').then((m) => m.ManageUsersRoleComponent),
+          },
+          {
+            path: 'add',
+            loadComponent: () =>
+              import('./pages/user-role/user-role.component').then((m) => m.UserRoleComponent),
+          },{
+            path: 'edit/:id',
+            loadComponent: () =>
+              import('./pages/user-role/user-role.component').then((m) => m.UserRoleComponent),
           }
         ],
       },

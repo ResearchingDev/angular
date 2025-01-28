@@ -19,9 +19,11 @@ exports.getClient = (req, callback) => {
     if (search && search.value) {
         searchQuery = `AND (fname ILIKE $1 OR lname ILIKE $1 OR email ILIKE $1 OR 
                         CASE 
-                          WHEN userrole::integer = '1' THEN 'admin'
-                          WHEN userrole::integer = '2' THEN 'supervisor'
-                          WHEN userrole::integer = '3' THEN 'employee'
+                          WHEN userrole::integer = '1' THEN 'Admin'
+                          WHEN userrole::integer = '2' THEN 'Admin'
+                          WHEN userrole::integer = '3' THEN 'Employee'
+                          WHEN userrole::integer = '4' THEN 'Supervisor'
+                          WHEN userrole::integer = '5' THEN 'Tester'
                         END ILIKE $1)`;
         queryParams.push(`%${search.value}%`);
     }
@@ -33,9 +35,11 @@ exports.getClient = (req, callback) => {
     const filteredQuery = `
     SELECT user_id, fname, lname, email,
         CASE 
-        WHEN userrole::integer = '1' THEN 'admin'
-        WHEN userrole::integer = '2' THEN 'supervisor'
-        WHEN userrole::integer = '3' THEN 'employee'
+            WHEN userrole::integer = '1' THEN 'Admin'
+            WHEN userrole::integer = '2' THEN 'Admin'
+            WHEN userrole::integer = '3' THEN 'Employee'
+            WHEN userrole::integer = '4' THEN 'Supervisor'
+            WHEN userrole::integer = '5' THEN 'Tester'
         END AS role 
     FROM pos_users 
     WHERE status = '0' ${searchQuery}
@@ -51,13 +55,11 @@ exports.getClient = (req, callback) => {
 
         db.query(filteredQuery, queryParams, (err, results) => {
         if (err) return callback(err, null);
-
         // Encrypt User IDs before sending response
         const encryptResults = results.rows.map(row => ({
             ...row,
             user_id: encryptId(row.user_id),
         }));
-
         callback(null, { totalRecords, filteredRecords: results.rowCount, data: encryptResults });
         });
     });

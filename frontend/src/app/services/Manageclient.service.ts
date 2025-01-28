@@ -1,7 +1,6 @@
 // src/app/services/data.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
 import * as configData from '../../config';
 var API_TOKEN = localStorage.getItem('api_token');
 

@@ -1,0 +1,19 @@
+{
+    "name": "angular-express-production",
+    "version": "1.0.0",
+    "description": "Production build for Angular frontend and Express.js backend",
+    "scripts": {
+      "build:frontend": "cd frontend && ng build --configuration production", 
+      "copy:frontend": "cp -r frontend/dist/angular-app/* backend/public",
+      "install:backend": "cd backend && npm install",  
+      "build:backend": "npm run install:backend",  
+      "build:all": "npm run build:frontend && npm run build:backend && npm run copy:frontend",
+      "start:backend": "node backend/server.js", 
+      "start": "npm run build:all && npm run start:backend"
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  

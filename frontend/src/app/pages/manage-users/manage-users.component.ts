@@ -1,13 +1,11 @@
 import {Component, OnInit } from '@angular/core';
 import { RouterModule ,Router} from '@angular/router';
-import { Subject } from 'rxjs';
 import { ManageClientService } from 'src/app/services/Manageclient.service';
 import { TableComponent } from 'src/app/common/table/table.component';
 import Swal from 'sweetalert2';
 
 
 // ✅ Import jQuery and DataTables directly
-import * as $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-dt';
 

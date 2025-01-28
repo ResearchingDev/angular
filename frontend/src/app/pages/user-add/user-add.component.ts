@@ -44,7 +44,7 @@ export class UserAddComponent {
         this.ClientForm.controls['address'].setValue(this.datas.address);
       });
     }
-    const query = `query {getUserRole {iUserRoleId vUserRole}}`;
+    const query = `query {getUserRole {iUserRoleId vUserRole eStatus}}`;
     this.ManageClientService.getUserRole(query).subscribe((data: any) => {
       this.userRole=data.data.getUserRole;
     });
@@ -89,7 +89,7 @@ export class UserAddComponent {
       });
     }else{
       this.submitted=true;
-
+      return;
     }
   }
   showSuccess() {
