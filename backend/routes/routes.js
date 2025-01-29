@@ -9,6 +9,7 @@ const verifyToken = require('../middleware/auth');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('../common/gSchemas');
 const userRoleSchema = require('../common/manageRoleSchema');
+const dashboardSchema = require('../common/DashboardSchema');
 const manageClientModel = require('../models/manageClientModel');
 
 // Login Controller
@@ -38,6 +39,10 @@ router.use('/graphql/userRole', graphqlHTTP({
 
 //Dashboard Controller
 router.post('/getDashboardClientData',dashboardController.getDashboardClientData);
+router.use('/graphql/dashboard', graphqlHTTP({
+  schema: dashboardSchema,
+  graphiql: true,
+}));
 //UserRole Controller
 router.post('/getUserRoleData',userRoleController.getUserRoleData);
 

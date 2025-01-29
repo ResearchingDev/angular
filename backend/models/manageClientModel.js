@@ -91,12 +91,13 @@ exports.getClientDetailById = (user_data , callback) => {
 //Edit new client
 exports.editClientData = (addClientData, callback) => {
     const { update_id, fname, lname, password, username, email, userrole, address } = addClientData;
+    const decrypted_user_id = decryptId(update_id);
     const query = `
         UPDATE public.pos_users
         SET fname = $1, lname = $2, password = $3, username = $4, email = $5, userrole = $6, address = $7, updated_by = $8
         WHERE user_id = $9
     `;
-    const values = [fname, lname, password, username, email, userrole, address, "admin", update_id];
+    const values = [fname, lname, password, username, email, userrole, address, "admin", decrypted_user_id];
     db.query(query, values, (err, results) => {
         if (err) {
             return callback(err);

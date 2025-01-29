@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6"> 
+        <p>Rest API</p>
         <apx-chart
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
@@ -9,4 +10,15 @@
           [xaxis]="chartOptions.xaxis"
         ></apx-chart>
     </div>
+    <div class="col-md-6">
+      <p>GraphQl</p>
+      <apx-chart
+        [series]="gchartOptions.series"
+        [chart]="gchartOptions.chart"
+        [dataLabels]="gchartOptions.dataLabels"
+        [yaxis]="gchartOptions.yaxis"
+        [tooltip]="gchartOptions.tooltip"
+        [xaxis]="gchartOptions.xaxis"
+      ></apx-chart>
+  </div>
 </div>

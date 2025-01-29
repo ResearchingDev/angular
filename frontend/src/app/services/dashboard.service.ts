@@ -7,7 +7,6 @@ var API_TOKEN = localStorage.getItem('api_token');
   providedIn: 'root'
 })
 export class DashboardService {
-
   constructor(private httpClient:HttpClient) { }
 
   getDashboardClientData(data:any){
@@ -17,5 +16,22 @@ export class DashboardService {
     })
     var body ={year:data};
     return this.httpClient.post(configData.API_URL+'getDashboardClientData',body,{headers:reqHeader});
+  }
+  getDashboardClientDatagraph(year:any){
+    const reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + API_TOKEN
+    });
+    const body = {
+      query: `
+        query GetDashboardClientData($year: Int!) {
+          getDashboardClientData(year: $year) {
+            name
+            data
+          }
+        }`,
+      variables: { year }
+    };
+    return this.httpClient.post(configData.API_URL + 'graphql/dashboard', body, { headers: reqHeader });
   }
 }

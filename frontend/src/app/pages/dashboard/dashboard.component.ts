@@ -50,14 +50,45 @@ export type ChartOptions = {
 export class DashboardComponent {
   year : any;
   chartOptions:any;
+  gchartOptions:any;
   constructor(public DashboardService:DashboardService){
     this.year = new Date().getFullYear();
     this.DashboardService.getDashboardClientData(this.year).subscribe((response:any)=>{
       this.chartInitialization(response);
     });
+    this.DashboardService.getDashboardClientDatagraph(this.year).subscribe((response:any)=>{
+      this.gchartInitialization(response.data.getDashboardClientData);
+    });
   }
   chartInitialization(response: any){
     this.chartOptions = {
+      series: response,
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      dataLabels: {
+        enabled: false
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept','Oct','Nov','Dec']
+      },
+      yaxis: {
+        title: {
+          text: 'Client Count'
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return + val + ' persons added';
+          }
+        }
+      }
+    };
+  }
+  gchartInitialization(response: any){
+    this.gchartOptions = {
       series: response,
       chart: {
         type: 'bar',
