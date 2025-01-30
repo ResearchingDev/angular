@@ -15,10 +15,10 @@ exports.getUserRoleData = (req, callback) => {
     let searchQuery = "";
     let queryParams = [];
     if (search && search.value) {
-        searchQuery = `AND (vUserRole ILIKE $1 OR 
+        searchQuery = `AND ("vUserRole" ILIKE $1 OR 
                         CASE 
-                          WHEN eStatus::integer = '0' THEN 'Active'
-                          WHEN eStatus::integer = '1' THEN 'InActive'
+                          WHEN "eStatus"::integer = '0' THEN 'Active'
+                          WHEN "eStatus"::integer = '1' THEN 'InActive'
                         END ILIKE $1)`;
         queryParams.push(`%${search.value}%`);
     }

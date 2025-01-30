@@ -1,27 +1,25 @@
-const path = require('path');
+import { join } from 'path';
 
-module.exports = {
-    entry: {
-        main: './app.js'
-    },
-    output: {
-        path: path.join(__dirname, 'dev-build'),
-        publicPath: '/',
-        filename: '[name].js',
-        clean: true
-    },
-    mode: 'development',
-    target: 'node',
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-            }
-        ]
-    },
-    externals: {
-        bcrypt: 'commonjs bcrypt',
-        'pg-native': 'commonjs pg-native'
-    }
+export const entry = {
+    main: './app.js'
+};
+export const output = {
+    path: join(__dirname, 'dev-build'),
+    publicPath: '/',
+    filename: '[name].js',
+    clean: true
+};
+export const mode = 'development';
+export const target = 'node';
+export const module = {
+    rules: [
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+        }
+    ]
+};
+export const externals = {
+    bcrypt: 'commonjs bcrypt',
+    'pg-native': 'commonjs pg-native'
 };

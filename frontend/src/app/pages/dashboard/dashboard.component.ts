@@ -49,7 +49,7 @@ export type ChartOptions = {
 })
 export class DashboardComponent {
   year : any;
-  chartOptions:any;
+  chartOptions:any = { series: [] };
   gchartOptions:any;
   constructor(public DashboardService:DashboardService){
     this.year = new Date().getFullYear();
@@ -81,7 +81,7 @@ export class DashboardComponent {
       tooltip: {
         y: {
           formatter: function (val) {
-            return + val + ' persons added';
+            return val + ' person';
           }
         }
       }
@@ -108,7 +108,7 @@ export class DashboardComponent {
       tooltip: {
         y: {
           formatter: function (val) {
-            return + val + ' persons added';
+            return val + ' person';
           }
         }
       }

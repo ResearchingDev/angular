@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-12">
         <button type="button" [routerLink]="['/role/add']" class="btn btn-info float-end">Add User Roles</button>
-        <div class="table-responsive w-100">
+        <div class="w-100">
           <app-table [tableHeaders]="headers" [tableData]="body" [dtOptions]="dtOptions"  (edit)="onEdit($event)" (delete)="onDelete($event)"></app-table>
         </div>
     </div>

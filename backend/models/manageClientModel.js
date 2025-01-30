@@ -11,11 +11,9 @@ exports.getClient = (req, callback) => {
 
     const validColumns = ["fname", "lname", "email", "role"];
     if (!validColumns.includes(orderColumn)) orderColumn = "fname"; // Default sort column
-
     // Search filter
     let searchQuery = "";
     let queryParams = [];
-
     if (search && search.value) {
         searchQuery = `AND (fname ILIKE $1 OR lname ILIKE $1 OR email ILIKE $1 OR 
                         CASE 
@@ -27,11 +25,9 @@ exports.getClient = (req, callback) => {
                         END ILIKE $1)`;
         queryParams.push(`%${search.value}%`);
     }
-
     // Query to get total records (before filtering)
     const totalRecordsQuery = `SELECT COUNT(*) AS total FROM pos_users WHERE status = '0'`;
-
-      // Query to get filtered records
+    // Query to get filtered records
     const filteredQuery = `
     SELECT user_id, fname, lname, email,
         CASE 
@@ -46,13 +42,10 @@ exports.getClient = (req, callback) => {
     ORDER BY ${orderColumn} ${orderDirection}
     LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;
     queryParams.push(length, start);
-
     // Execute queries
     db.query(totalRecordsQuery, [], (err, totalResult) => {
         if (err) return callback(err, null);
-        
         const totalRecords = totalResult.rows[0].total;
-
         db.query(filteredQuery, queryParams, (err, results) => {
         if (err) return callback(err, null);
         // Encrypt User IDs before sending response
