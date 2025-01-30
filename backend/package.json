@@ -90,10 +90,21 @@
     "vary": "^1.1.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js",
+
+    "start:dev": "node ./dev-build/main.js",
+    "build:dev": "webpack --config webpack.dev.js --mode development",
+
+    "start:prod": "node ./prod-build/main.js",
+    "build:prod": "webpack --config webpack.prod.js --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  }
 }
