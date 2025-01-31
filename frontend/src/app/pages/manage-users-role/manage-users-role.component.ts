@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { TableComponent } from 'src/app/common/table/table.component';
 import { ManagerolesService } from 'src/app/services/manageroles.service';
 import { RouterModule ,Router} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 // Import jQuery and DataTables directly
@@ -11,7 +12,7 @@ import 'datatables.net-dt';
 @Component({
   selector: 'app-manage-users-role',
   standalone: true,
-  imports: [RouterModule,TableComponent],
+  imports: [RouterModule,TableComponent,FormsModule],
   templateUrl: './manage-users-role.component.html',
   styleUrl: './manage-users-role.component.scss'
 })
@@ -21,6 +22,7 @@ export class ManageUsersRoleComponent {
   body: any[] = [];
   response:any;
   dtOptions: any = {};
+  selectedType: string = 'pos'; 
   constructor(public ManagerolesService:ManagerolesService,private router: Router) {}
   
   ngOnInit(){
@@ -32,13 +34,32 @@ export class ManageUsersRoleComponent {
       lengthMenu: [5, 10, 50, 100],
       order:[[0, 'desc']],
       ajax: (dataTablesParameters: any, callback) => {
-        this.ManagerolesService.getRoleDetails(dataTablesParameters).subscribe((response: any) => {
-          this.body = response.data.map(user => Object.values(user));
-          callback({
-            recordsTotal: response.totalRecords,
-            recordsFiltered: response.totalRecords,
+        if(this.selectedType == "erp"){
+          const formData = new FormData();
+          Object.keys(dataTablesParameters).forEach(key => {
+            formData.append(key, dataTablesParameters[key]);
           });
-        });
+          this.ManagerolesService.getERPRoleDetails(formData).subscribe((response: any) => {
+            var erp_body  = response.data.map((item: any) => ({
+              id: item.id,
+              role_name: item.role_name,
+              status: item.status
+            }));
+            this.body = erp_body.map((user: { [s: string]: unknown; } | ArrayLike<unknown>) => Object.values(user));
+            callback({
+              recordsTotal: response.recordsTotal,
+              recordsFiltered: response.recordsFiltered,
+            });
+          });
+        }else{
+          this.ManagerolesService.getRoleDetails(dataTablesParameters).subscribe((response: any) => {
+            this.body = response.data.map(user => Object.values(user));
+            callback({
+              recordsTotal: response.totalRecords,
+              recordsFiltered: response.totalRecords,
+            });
+          });
+        }
       },
       columns: [
         { data: 'vUserRole' },
@@ -89,5 +110,9 @@ export class ManageUsersRoleComponent {
           });
         }
       });
+    }
+    onTypeChange(selected: string) {
+      this.selectedType = selected;
+      this.tableComponent.reloadTable();
     }
 }

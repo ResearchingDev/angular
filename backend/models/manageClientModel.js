@@ -9,8 +9,8 @@ exports.getClient = (req, callback) => {
     let orderColumn = columns[order[0].column].data;
     let orderDirection = order[0].dir.toUpperCase();
 
-    const validColumns = ["fname", "lname", "email", "role"];
-    if (!validColumns.includes(orderColumn)) orderColumn = "fname"; // Default sort column
+    const validColumns = ["user_id","fname", "lname", "email", "role"];
+    if (!validColumns.includes(orderColumn)) orderColumn = "user_id"; // Default sort column
     // Search filter
     let searchQuery = "";
     let queryParams = [];

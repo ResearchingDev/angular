@@ -19,6 +19,16 @@ export class ManagerolesService {
   getRoleDetails(dataTablesParameters: any){
      return this.httpClient.post(configData.API_URL + 'getUserRoleData',dataTablesParameters,{ headers: this.getAuthHeaders() });
   }
+
+  getERPRoleDetails(dataTablesParameters: any){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer 15|vJBPjR9I0aeulHgj50esFmGw8eRwFWrOGTJ7qxpZ5fe36618`
+    });
+    const body = dataTablesParameters;
+    return this.httpClient.post(configData.LARAVEL_API_URL+ 'client/roles/list' , body, {headers : reqHeader});
+ }
+
   getRoleDetailById(data:any){
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',

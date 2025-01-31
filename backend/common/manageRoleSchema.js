@@ -21,7 +21,7 @@ const RootQuery = new GraphQLObjectType({
         args: {
           iUserRoleId: { type: GraphQLString }  // The user role ID as a parameter
         },
-        resolve(parent, args) {
+        async resolve(parent, args) {
             const iUserRoleId = decryptId(args.iUserRoleId);
           return new Promise((resolve, reject) => {
             db.query('SELECT * FROM pos_user_role WHERE "iUserRoleId" = $1', [iUserRoleId], (err, result) => {
@@ -51,21 +51,20 @@ const RootMutation = new GraphQLObjectType({
             vUserRole: { type: GraphQLString },
             eStatus: { type: GraphQLString },
             },
-            resolve(parent, args, context) {
+            async resolve(parent, args, context) {
             if (!context.user) {
                 throw new Error('Unauthorized');  // If no user, throw error
             }
             // Proceed to insert the role into the database
-            return db.query(
-                'INSERT INTO pos_user_role ("vUserRole", "eStatus","created_by","created_at") VALUES ($1, $2, 1, NOW()) RETURNING *',  // Use RETURNING to get the inserted row
-                [args.vUserRole, args.eStatus]
-            )
-            .then(result => {
-                return result.rows[0];  // Return the inserted row
-            })
-            .catch(error => {
+            try {
+                const result = await db.query(
+                  'INSERT INTO pos_user_role ("vUserRole", "eStatus","created_by","created_at") VALUES ($1, $2, 1, NOW()) RETURNING *', // Use RETURNING to get the inserted row
+                  [args.vUserRole, args.eStatus]
+                );
+                return result.rows[0];
+              } catch (error) {
                 throw new Error('Error inserting user role: ' + error.message);
-            });
+              }
             },
         },
       
@@ -77,7 +76,7 @@ const RootMutation = new GraphQLObjectType({
             vUserRole: { type: GraphQLString },
             eStatus: { type: GraphQLString },
             },
-            resolve(parent, args, context) {
+            async resolve(parent, args, context) {
             if (!context.user) {
                 throw new Error('Unauthorized');  // If no user, throw error
             }
@@ -105,7 +104,7 @@ const RootMutation = new GraphQLObjectType({
             args: {
             iUserRoleId: { type: GraphQLString }
             },
-            resolve(parent, args, context) {
+            async resolve(parent, args, context) {
             if (!context.user) throw new Error('Unauthorized');
             const iUserRoleId = decryptId(args.iUserRoleId);
             return db.query(

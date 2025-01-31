@@ -11,9 +11,9 @@ export class AuthInterceptor implements HttpInterceptor {
         // Clone the request if you need to add headers (e.g., Authorization)
         const token = localStorage.getItem('api_token'); // Or however you're storing your token
         const clonedRequest = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}` // Add the Authorization header
-          }
+          // setHeaders: {
+          //   Authorization: `Bearer ${token}` // Add the Authorization header
+          // }
         });
         return next.handle(clonedRequest).pipe(
           catchError((error: HttpErrorResponse) => {
