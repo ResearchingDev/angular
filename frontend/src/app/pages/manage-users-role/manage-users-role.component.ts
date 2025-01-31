@@ -4,6 +4,8 @@ import { ManagerolesService } from 'src/app/services/manageroles.service';
 import { RouterModule ,Router} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { NgToastService} from 'ng-angular-popup';
+import { Language } from 'src/app/common/centerlized/language.enum';
 
 // Import jQuery and DataTables directly
 import 'datatables.net';
@@ -23,7 +25,8 @@ export class ManageUsersRoleComponent {
   response:any;
   dtOptions: any = {};
   selectedType: string = 'pos'; 
-  constructor(public ManagerolesService:ManagerolesService,private router: Router) {}
+  show: boolean = true;
+  constructor(private toast: NgToastService,public ManagerolesService:ManagerolesService,private router: Router) {}
   
   ngOnInit(){
     this.dtOptions = {
@@ -35,6 +38,7 @@ export class ManageUsersRoleComponent {
       order:[[0, 'desc']],
       ajax: (dataTablesParameters: any, callback) => {
         if(this.selectedType == "erp"){
+          this.show=true;
           const formData = new FormData();
           Object.keys(dataTablesParameters).forEach(key => {
             formData.append(key, dataTablesParameters[key]);
@@ -52,6 +56,7 @@ export class ManageUsersRoleComponent {
             });
           });
         }else{
+          this.show=true;
           this.ManagerolesService.getRoleDetails(dataTablesParameters).subscribe((response: any) => {
             this.body = response.data.map(user => Object.values(user));
             callback({
@@ -77,39 +82,45 @@ export class ManageUsersRoleComponent {
     onEdit(id: number): void {
       if (typeof id == "string") {
         this.router.navigate([`role/edit/${id}`]);
-      } 
+      }else{
+        this.toast.danger('Invalid ID!', Language.ERROR, 3000);
+      }
     }
   
     // Method to handle delete action
     onDelete(id: any): void {
-      Swal.fire({
-        title: 'Are you sure want to remove?',
-        text: 'You will not be able to recover this record!',
-        icon: 'warning',
-        showCancelButton: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, keep it',
-        customClass: {
-          popup: 'custom-swal-popup',  // Add custom class to the popup
-          confirmButton: 'btn btn-primary px-4',  // Custom button for confirm
-          cancelButton: 'btn btn-danger ms-2 px-4',  // Custom button for cancel
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var client_id = {'iUserRoleId':id}
-          this.ManagerolesService.deleteRole(client_id)
-          .subscribe(resp => {
-            this.response = resp['data'].deleteUserRole;
-            if (this.response.includes("deleted successfully")) {
-              this.tableComponent.reloadTable(); 
-              Swal.fire('Deleted', this.response.message, 'success').then(function () {
-              });
-            }
-          });
-        }
-      });
+      if (typeof id == "string") {
+        Swal.fire({
+          title: 'Are you sure want to remove?',
+          text: 'You will not be able to recover this record!',
+          icon: 'warning',
+          showCancelButton: true,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, keep it',
+          customClass: {
+            popup: 'custom-swal-popup',  // Add custom class to the popup
+            confirmButton: 'btn btn-primary px-4',  // Custom button for confirm
+            cancelButton: 'btn btn-danger ms-2 px-4',  // Custom button for cancel
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var client_id = {'iUserRoleId':id}
+            this.ManagerolesService.deleteRole(client_id)
+            .subscribe(resp => {
+              this.response = resp['data'].deleteUserRole;
+              if (this.response.includes("deleted successfully")) {
+                this.tableComponent.reloadTable(); 
+                Swal.fire('Deleted', this.response.message, 'success').then(function () {
+                });
+              }
+            });
+          }
+        });
+      }else{
+        this.toast.danger('Invalid ID!', Language.ERROR, 3000);
+      }
     }
     onTypeChange(selected: string) {
       this.selectedType = selected;

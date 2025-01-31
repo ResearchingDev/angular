@@ -11,7 +11,7 @@
       </div>
       <button type="button" [routerLink]="['/role/add']" class="btn btn-info float-end mb-3">Add User Roles</button>
       <div class="w-100">
-        <app-table [tableHeaders]="headers" [tableData]="body" [dtOptions]="dtOptions" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-table>
+        <app-table [tableHeaders]="headers" [tableData]="body" [dtOptions]="dtOptions" [show]="show" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-table>
       </div>
     </div>
   </div>

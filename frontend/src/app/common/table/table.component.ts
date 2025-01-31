@@ -15,7 +15,8 @@ export class TableComponent implements AfterViewInit{
   @Input() tableHeaders: string[] = []; // For <th> values
   @Input() tableData: any[] = [];       // For <td> values (array of rows)
   @Input() dtOptions:  any = {};
-
+  @Input() show: boolean = false;
+  
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 

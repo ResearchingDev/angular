@@ -3,6 +3,7 @@ export const API_TOKEN = 'YXJzX2FwaTphcnMxMjM0';
 export const Mixpanel_Project_Token = '';
 const host = "http://localhost:3000";
 const laravel_host = "http://127.0.0.1:8000";
+export const Application_Name = 'POS';
 //Local URL
 export const BASE_URL = host;
 export const PUBLIC_URL = host+'/public';
